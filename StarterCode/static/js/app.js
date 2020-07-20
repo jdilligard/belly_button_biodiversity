@@ -124,7 +124,7 @@ function doTheBubble(x, y, h) {
         text: h,
         mode: 'markers',
         marker: {
-            color: ['rgb(93, 164, 214)', 'rgb(255, 144, 14)', 'rgb(44, 160, 101)', 'rgb(255, 65, 54)'],
+            // color: ['rgb(93, 164, 214)', 'rgb(255, 144, 14)', 'rgb(44, 160, 101)', 'rgb(255, 65, 54)'],
             size: y
         }
     };
@@ -181,16 +181,27 @@ function fillMetaData(id) {
             samples = data["samples"].filter(x => x.id == id)[0];
             otu_ids = samples["otu_ids"];
             sample_values = samples["sample_values"];
-            otu_labels = samples["otu_labels"]
-                // otu_ids.sort(function(a, b) { return b - a });
+            otu_labels = samples["otu_labels"];
+            // otu_ids.sort(function(a, b) { return b - a });
             $(`#sample-metadata`).empty();
             doTheGauge(wf);
-            doTheBubble(otu_ids, sample_values, otu_labels)
+            doTheBubble(otu_ids, sample_values, otu_labels);
             Object.entries(metadata).forEach(function([key, value]) {
                 let info = `<p>${key}: ${value} </p>`;
                 $(`#sample-metadata`).append(info);
 
             });
+
+            //https://stackoverflow.com/questions/22015684/how-do-i-zip-two-arrays-in-javascript
+            let plotData = samples["otu_ids"].map(function(e, i) {
+                return [e, samples["sample_values"][i]]; //creates a list of list
+            });
+            let plotData_Sorted = plotData.sort((a, b) => b[1] - a[1]);
+            x = plotData_Sorted.map(x => x[1]).slice(0, 10).reverse() //[1] corresponds to the sample_value
+            y = plotData_Sorted.map(x => "OTU " + x[0]).slice(0, 10).reverse() //[0] corresponds to the OTU ID (the OTU is neccessary to append)
+
+            doTheBar(x, y, h = [])
+
         }
 
     })
