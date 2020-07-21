@@ -1,23 +1,3 @@
-var otu_ids_jd = ['OTU 1167', 'OTU 2859', 'OTU 482', 'OTU 41', 'OTU 1189', 'OTU 352', 'OTU 189', 'OTU 2318', 'OTU 1977'];
-var sample_values_jd = [152, 132, 120, 80, 70, 50, 50, 47, 47, 38];
-var otu_labels_jd = ['Bacteria', 'Firmicutes', 'Clostridia', 'Clostridiales', 'IncertaeSedisXI', 'Anaerococcus', 'Firmicutes', 'Clostridia', 'Clostridiales', 'IncertaeSedisXI'];
-var w_freq = [0, 9, 2, 3, 5, 6, 1, 1, 4, 5];
-var bioData;
-var names;
-var metadata;
-var samples;
-
-// var promise = d3.json("/StarterCode/samples.json").then(function(data) {
-//     console.log(data);
-//     names = data["names"];
-//     metadata = data["metadata"];
-//     samples = data["samples"];
-//     console.log(names);
-//     return data;
-
-// });
-
-
 $(document).ready(function() {
     // console.log('Before Do the bar')
     fillDropdown();
@@ -27,9 +7,6 @@ $(document).ready(function() {
     // doTheBubble(otu_ids_jd, sample_values_jd, otu_labels_jd);
     // doTheGauge();
 });
-
-
-
 
 
 
@@ -46,14 +23,14 @@ function doTheBar(x, y, h) {
         orientation: 'h',
         text: h,
         marker: {
-            color: 'rgb(142,124,195)'
+            color: 'rgb(240,0,0)',
         }
     };
 
     var data = [trace1];
 
     var layout = {
-        title: 'Number of Graphs Made this Week',
+        title: 'Sample Values vs. OTU Ids',
         font: {
             family: 'Raleway, sans-serif'
         },
@@ -85,13 +62,7 @@ function doTheGauge(wf = 5) {
             { range: [0, 1], color: "royalblue" },
             { range: [1, 2], color: "Oryel" },
             { range: [2, 3], color: "Oryel" },
-            { range: [3, 4], color: "gray" },
-            { range: [4, 5], color: "gray" },
-            { range: [5, 6], color: "gray" },
-            { range: [6, 7], color: "gray" },
-            { range: [7, 8], color: "gray" },
-            { range: [8, 9], color: "gray" },
-            { range: [9, 10], color: "gray" },
+
         ],
         gauge: {
             axis: { range: [null, 10] },
@@ -124,7 +95,8 @@ function doTheBubble(x, y, h) {
         text: h,
         mode: 'markers',
         marker: {
-            // color: ['rgb(93, 164, 214)', 'rgb(255, 144, 14)', 'rgb(44, 160, 101)', 'rgb(255, 65, 54)'],
+            color: x,
+            colorscale: 'Jet',
             size: y
         }
     };
@@ -132,10 +104,10 @@ function doTheBubble(x, y, h) {
     var data = [trace1];
 
     var layout = {
-        title: 'Bubble Chart Hover Text',
+        title: 'Sample Values vs. OTU Ids',
         showlegend: false,
-        height: 900,
-        width: 900
+        height: 600,
+        width: 1200
     };
 
     Plotly.newPlot('bubble', data, layout);
