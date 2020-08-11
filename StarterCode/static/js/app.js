@@ -1,11 +1,6 @@
 $(document).ready(function() {
-    // console.log('Before Do the bar')
     fillDropdown();
 
-    doTheBar(sample_values_jd, otu_ids_jd, otu_labels_jd);
-    // console.log('After do the bar')
-    // doTheBubble(otu_ids_jd, sample_values_jd, otu_labels_jd);
-    // doTheGauge();
 });
 
 
@@ -13,9 +8,6 @@ $(document).ready(function() {
 function doTheBar(x, y, h) {
     console.log('In do the bar');
 
-    // var otu_ids = bioData.otu_ids(0, 9);
-    //console.log('in do the bar')
-    //  console.log(sample_values);
     var trace1 = {
         y: y,
         x: x,
